@@ -9,7 +9,7 @@ import { Raleway } from 'next/font/google';
 
 const raleway = Raleway({
   weight: '400',
-  subsets: ['latin'],
+  subsets: ['cyrillic'],
   display: 'swap'
 })
 
@@ -17,7 +17,12 @@ export default function Home() {
   return (
 <UserLayout title={'Home Page'}>
   <HomeHeader />
-  <div className={raleway.className}>isi content WAYANG BESAR</div>
+  <div className='text-[48px]'>
+  <h1 className='font-raleway' >isi content WAYANG BESAR</h1>
+  </div>
+  <div className='text-[48px]'>
+  <h1>isi content WAYANG BESAR</h1>
+  </div>
 </UserLayout>
    
   )
