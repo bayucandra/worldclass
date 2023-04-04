@@ -2,25 +2,19 @@ import React from 'react'
 
 export default function HomeHeader() {
   return (
-    <div className='bg-black'  style={{
+    <div className='bg-black pt-64' style={{
       backgroundImage: `url('/learning.jpg')`,
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'bottom center',
       backgroundSize: 'cover',
-       height: "487px",
-      }}>
-    <div className='md:container md:mx-auto border'>
-      <div className="grid grid-rows-2 grid-flow-col gap-4 font-railway text-white">
-        <div className='font-roboto text-white'>01 test Text for style</div>
-        <div><h2>01 test Text for style</h2></div>
-        <div>03</div>
-        <div>04</div>
-        <div>05</div>
-        <div>06</div>
-        <div>07</div>
-        <div>08</div>
+      height: "487px",
+    }}>
+      <div className='w-1/2 py-10 mx-auto md:text-left rounded-lg bg-gradient-to-r from-bg-dark'>
+        <h1 className='text-lg md:text-5xl text-center font-raleway font-bold text-white'>
+          World Keep Changing
+        </h1>
+        <h3 className='text-3xl text-center font-raleway font-bold text-red-soft'>Lets Keep Learning</h3>
       </div>
-    </div>
     </div>
   )
 }
