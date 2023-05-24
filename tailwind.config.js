@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      raleway: ["Raleway", "sans-serif"]
+      raleway: ["Raleway", "sans-serif"],
+      quicksand: ["Quicksand", "sans-serif"],
     },
     colors: {
       'white': '#ffffff',
@@ -19,6 +20,15 @@ module.exports = {
       'light-gray': '#f8f8f8',
       'dark-gray': '#333333',
       'star': '#ffce08',
+    },
+    letterSpacing: {
+      tightest: '-.075em',
+      tighter: '-.05em',
+      tight: '-.025em',
+      normal: '0',
+      wide: '.025em',
+      wider: '.05em',
+      widest: '0.4em',
     },
   },
   variants: {
