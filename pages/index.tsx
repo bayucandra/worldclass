@@ -18,7 +18,7 @@ export default function Home() {
     <UserLayout title={"Home Page"}>
       <HomeHeader />
 
-      <div className="w-full px-20 pt-20 flex justify-between mx-auto">
+      <div className="w-full p-20 flex justify-between mx-auto">
 
         <div className="p-10 w-3/5 flex flex-col justify-center items-left">
           <h1 className="font-raleway text-5xl text-bg-dark font-bold tracking-wider" >LETS JOIN US!</h1>
@@ -49,7 +49,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              
+
               <h2 className="text-2xl font-raleway text-center my-5">Register as a <span className="text-bg-dark font-semibold">{authMode}</span></h2>
             </>
             :
@@ -104,7 +104,7 @@ export default function Home() {
       <div className="text-[48px] pt-16 pb-10">
         <h1 className="font-raleway text-bg-dark text-center" >POPULAR CLASS</h1>
       </div>
-      <div className="w-full px-14 grid grid-cols-4 gap-4 mx-auto">
+      <div className="w-full px-14 grid grid-cols-4 gap-4 mx-auto mb-20">
 
         <div className="border border-bg-light transition ease-in-out delay-150 hover:bg-bg-light hover:text-white group hover:shadow-md rounded-md p-0">
           <Image src={"/images/ai.jpg"} style={{ width: "100%", height: "180px" }} width="350" height="0" alt={""} />

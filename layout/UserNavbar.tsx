@@ -62,7 +62,7 @@ export default function UserNavbar() {
                 </Link>
               </li>
               <li className="text-white no-underline hover:underline">
-                <Link href="/products">
+                <Link href="/learn-list">
                   Learn Lists
                 </Link>
               </li>
