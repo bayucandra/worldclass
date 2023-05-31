@@ -16,8 +16,8 @@ export default function Products() {
     }
     return (
         <UserLayout title='Learning lists'>
-            <div className="w-full p-20 flex justify-between mx-auto bg-cover"
-                style={{ backgroundColor: "#F4F3F8" }}>
+            <div className="w-full p-14 flex justify-between mx-auto bg-cover"
+                style={{ backgroundImage: `url(/background.png)`, backgroundColor: "#F4F3F8" }}>
 
                 <div className="py-10 w-2/4">
                     <h1 className='text-7xl font-bebasneue font-bold text-danger tracking-wider w-full text-center'
