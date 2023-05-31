@@ -15,10 +15,11 @@ export default function UserFooter() {
   return (
     <>
       <div className='h-64 flex flex-col justify-center items-start bg-bg-light px-20 font-quicksand'>
-        <Link className='text-white hover:underline hover:text-btn-hover' href="">About Us</Link>
-        <Link className='text-white hover:underline hover:text-btn-hover' href="">Contact Us</Link>
-        <Link className='text-white hover:underline hover:text-btn-hover' href="">Terms of Use</Link>
-        <Link className='text-white hover:underline hover:text-btn-hover' href="">Privacy Policy</Link>
+        <h3 className='text-danger text-lg font-semibold font-raleway'>MENU</h3>
+        <Link className='text-white hover:underline hover:text-btn-hover' href="">- About Us</Link>
+        <Link className='text-white hover:underline hover:text-btn-hover' href="">- Contact Us</Link>
+        <Link className='text-white hover:underline hover:text-btn-hover' href="">- Terms of Use</Link>
+        <Link className='text-white hover:underline hover:text-btn-hover' href="">- Privacy Policy</Link>
       </div>
       
       <div className='bg-bg-dark text-white text-center py-2'>

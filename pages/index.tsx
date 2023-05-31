@@ -18,17 +18,17 @@ export default function Home() {
     <UserLayout title={"Home Page"}>
       <HomeHeader />
 
-      <div className="w-full p-20 flex justify-between mx-auto">
+      <div className="w-full p-20 flex justify-between mx-auto bg-contain" style={{backgroundColor:"#f7f7f7",}}>
 
         <div className="p-10 w-3/5 flex flex-col justify-center items-left">
           <h1 className="font-raleway text-5xl text-bg-dark font-bold tracking-wider" >LETS JOIN US!</h1>
           <p className="text-xl text-dark-gray font-quicksand">Learning should be easy, anytime & anywhere !!!</p>
         </div>
 
-        <div className="border w-2/5 border-bg-light hover:shadow-md rounded-md p-7">
+        <div className="border w-2/5 border-bg-light hover:shadow-md rounded-md p-7 bg-white">
           {authMode != "signin" ?
             <>
-              <div className="flex justify-between">
+              <div className="flex justify-between" >
                 <div onClick={() => setAuthMode("Student")} className={"group w-1/2 hover:shadow-lg flex items-center cursor-pointer p-2 mr-1 border border-light-gray rounded-md " + (authMode === "Student" ? "bg-btn-hover text-white shadow-md" : "hover:bg-btn-hover")}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 border group-hover:border-white fill-none group-hover:stroke-white rounded-full p-2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
@@ -87,13 +87,13 @@ export default function Home() {
           {authMode != "signin" ?
             <>
               <h3 className="text-lg text-center my-5">Have An account?</h3><div className="flex justify-center">
-                <button onClick={() => setAuthMode("signin")} className="text-center border border-btn-hover py-1 px-3 rounded-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-btn-hover duration-300">Sign in</button>
+                <button onClick={() => setAuthMode("signin")} className="text-center border border-btn-hover py-1 px-3 rounded-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-btn-hover hover:text-white duration-300">Sign in</button>
               </div>
             </>
             :
             <>
               <h3 className="text-lg text-center my-5">Don&apos;t Have An account?</h3><div className="flex justify-center">
-                <button onClick={() => setAuthMode("Student")} className="text-center border border-btn-hover py-1 px-3 rounded-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-btn-hover duration-300">Register</button>
+                <button onClick={() => setAuthMode("Student")} className="text-center border border-btn-hover py-1 px-3 rounded-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-btn-hover hover:text-white duration-300">Register</button>
               </div>
             </>
           }
