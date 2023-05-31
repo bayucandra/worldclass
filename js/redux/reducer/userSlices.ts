@@ -28,6 +28,7 @@ export interface CounterState {
   res: any;
   err: string | undefined;
   data: IGroupDetailData | null;
+  isOpen: boolean;
 }
 
 const initialState: CounterState = {
@@ -37,16 +38,16 @@ const initialState: CounterState = {
   res: null,
   err: undefined,
   data: null,
+  isOpen: false,
 }
 
 export const usersSlice = createSlice({
-  name: 'users',
+  name: 'usersData',
   initialState,
   reducers: {
     fetching: (state) => {
       state.fetching = true;
       state.fetched = false;
-      console.log('check slice user fetching');
     },
     fetched: (state, action: PayloadAction<IUsersPayload>) => {
       state.fetching = false;
@@ -55,8 +56,13 @@ export const usersSlice = createSlice({
       state.data = action.payload.data;
       state.err = action.payload.err;
     },
-
+    openModalLearnList: (state) => {
+      state.isOpen = true;
+    },
+    closeModalLearnList: (state) => {
+      state.isOpen = false;
+    }
   },
 })
 
-export const users = usersSlice.reducer;
+export const usersData = usersSlice.reducer;

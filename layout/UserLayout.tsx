@@ -1,5 +1,5 @@
-import UserFooter from '@/layout/UserFooter'
-import UserNavbar from '@/layout/UserNavbar'
+import UserFooter from '@/layout/userLayout/UserFooter'
+import UserNavbar from '@/layout/userLayout/UserNavbar'
 import Head from 'next/head';
 import React, { ReactNode } from 'react'
 interface IUserLayout {

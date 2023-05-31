@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { AnyAction, Reducer, ReducersMapObject } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
-import { users } from '@/js/redux/reducer/userSlices';
+import { usersData } from '@/js/redux/reducer/userSlices';
 
 // export default combineReducers({
 // 	counterSlice,
@@ -9,7 +9,7 @@ import { users } from '@/js/redux/reducer/userSlices';
 //   })
 
 const combinedReducer = combineReducers({
-	users,
+	usersData,
 });
 
 export const reducer: Reducer<any, AnyAction> | ReducersMapObject<any, AnyAction> = (state: ReturnType<typeof combinedReducer>, action: AnyAction) => {

@@ -14,6 +14,8 @@ const raleway = Raleway({
 export default function Home() {
   const [authMode, setAuthMode] = useState("Student");
   const [showModal, setShowModal] = useState(false);
+  const url = process.env.NEXT_PUBLIC_DEV_URL
+        console.log("datalog dari index " + url);
   return (
     <UserLayout title={"Home Page"}>
       <HomeHeader />

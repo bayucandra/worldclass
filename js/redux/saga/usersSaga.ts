@@ -10,75 +10,41 @@ export function* usersSaga() {
     yield takeLatest(
         usersSlice.actions.fetching.toString(),
         usersState,
-       
+
     );
 };
 
 
-// function* usersState(action: PayloadAction<{group_id: number}>) {
-
-        
-//     const fetchRes: IUsersPayload = yield async function() {
-    
-
-//             let dev = process.env.NODE_ENV !== 'production';
-//             let { DEV_URL, PROD_URL } = process.env;
-        
-//             // request posts from api
-//             let response = await fetch(`http://localhost:3000/api/actions`);
-//             // extract the data
-//             let data = await response.json();
-        
-//             return {
-//                 props: {
-//                     posts: data['users'],
-//                 },
-//             };
-            
-          
+function* usersState(action: PayloadAction<{ group_id: number }>) {
 
 
-//     }();
+    const fetchRes: IUsersPayload = yield async function () {
+        const ret: IUsersPayload = {
+            res: null,
+            data: null,
+            err: "",
+        }
+        const url = process.env.NEXT_PUBLIC_DEV_URL
 
-//     yield put(usersSlice.actions.fetched(fetchRes));
+        try { process.env.DEV_URL;
 
-// // fetch('https://dummyjson.com/products/1')
-// // .then(res => res.json())
-// // .then(json => console.log(json))
-        
-// }
-
-
-    function* usersState(action: PayloadAction<{group_id: number}>) {
-
-        
-        const fetchRes: IUsersPayload = yield async function() {
-            const ret: IUsersPayload = {
-                res: null,
-                data: null,
-                err: "",
-            }
-            const url = process.env.MONGODB_URI
-    
-            try {
-                
-                const res: any = await axios.get('http://localhost:3000/api/actions');
-                ret.res = res;
-                ret.data = _.get(res, 'data.message')
+            const res: any = await axios.get(`${url}/api/actions`);
+            ret.res = res;
+            ret.data = _.get(res, 'data.message')
 
 
-            } catch(e) {
-              // ret.err = e?.message ?? e ?? errorMessages.fetchException;
-            }
-    
-            return ret;
-    
-        }();
-    
-        yield put(usersSlice.actions.fetched(fetchRes));
-    
-// fetch('https://dummyjson.com/products/1')
-// .then(res => res.json())
-// .then(json => console.log(json))
-            
+        } catch (e) {
+            // ret.err = e?.message ?? e ?? errorMessages.fetchException;
+        }
+
+        return ret;
+
+    }();
+
+    yield put(usersSlice.actions.fetched(fetchRes));
+
+    // fetch('https://dummyjson.com/products/1')
+    // .then(res => res.json())
+    // .then(json => console.log(json))
+
 }
