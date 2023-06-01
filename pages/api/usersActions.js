@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 const { connectToDatabase } = require('../../lib/mongodb');
 const ObjectId = require('mongodb').ObjectId;
 
@@ -6,34 +5,35 @@ export default async function handler(req, res) {
     // switch the methods
     switch (req.method) {
         case 'GET': {
-            return getPosts(req, res);
+            return getUsers(req, res);
         }
 
         case 'POST': {
-            return addPost(req, res);
+            return addUser(req, res);
         }
 
         case 'PUT': {
-            return updatePost(req, res);
+            return updateUser(req, res);
         }
 
         case 'DELETE': {
-            return deletePost(req, res);
+            return deleteUser(req, res);
         }
     }
 }
 
-// Getting all posts.
-async function getPosts(req, res) {
+// Getting all users.
+async function getUsers(req, res) {
+
     try {
         let { db } = await connectToDatabase();
-        let posts = await db
+        let users = await db
             .collection('data_users')
             .find({})
             .sort({ published: -1 })
             .toArray();
         return res.json({
-            message: JSON.parse(JSON.stringify(posts)),
+            message: JSON.parse(JSON.stringify(users)),
             success: true,
         });
     } catch (error) {
@@ -42,15 +42,18 @@ async function getPosts(req, res) {
             success: false,
         });
     }
+
 }
 
-// Adding a new post
-async function addPost(req, res) {
+// Adding a new user
+async function addUser(req, res) {
+    
+
     try {
         let { db } = await connectToDatabase();
-        await db.collection('posts').insertOne(JSON.parse(req.body));
+        await db.collection('data_users').insertOne(req.body);
         return res.json({
-            message: 'Post added successfully',
+            message: 'User added successfully',
             success: true,
         });
     } catch (error) {
@@ -59,14 +62,15 @@ async function addPost(req, res) {
             success: false,
         });
     }
+
 }
 
-// Updating a post
-async function updatePost(req, res) {
+// Updating a user
+async function updateUser(req, res) {
     try {
         let { db } = await connectToDatabase();
 
-        await db.collection('posts').updateOne(
+        await db.collection('data_users').updateOne(
             {
                 _id: new ObjectId(req.body),
             },
@@ -74,7 +78,7 @@ async function updatePost(req, res) {
         );
 
         return res.json({
-            message: 'Post updated successfully',
+            message: 'User updated successfully',
             success: true,
         });
     } catch (error) {
@@ -85,17 +89,17 @@ async function updatePost(req, res) {
     }
 }
 
-// deleting a post
-async function deletePost(req, res) {
+// deleting a user
+async function deleteUser(req, res) {
     try {
         let { db } = await connectToDatabase();
 
-        await db.collection('posts').deleteOne({
+        await db.collection('data_users').deleteOne({
             _id: new ObjectId(req.body),
         });
 
         return res.json({
-            message: 'Post deleted successfully',
+            message: 'User deleted successfully',
             success: true,
         });
     } catch (error) {

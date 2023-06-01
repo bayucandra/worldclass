@@ -1,14 +1,18 @@
 import { useAppDispatch, useAppSelector } from '@/js/redux/hook';
 import { usersSlice } from '@/js/redux/reducer/userSlices';
 import React, { useState } from 'react'
+interface IProps {
+    children?: React.ReactNode;
+}
 
-
-export default function LearnListsModals() {
+export default function LearnListsModals(props:IProps) {
     const showModalLearnList = useAppSelector(state => state.usersData)
     const dispatch = useAppDispatch();
+
     function closeModalLearnist() {
         dispatch(usersSlice.actions.closeModalLearnList());
     }
+    
     return (
         <>
             {showModalLearnList.isOpen ? (
@@ -35,13 +39,7 @@ export default function LearnListsModals() {
                                 </div>
                                 {/*body*/}
                                 <div className="relative p-6 flex-auto">
-                                    <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                                        I always felt like I could do anything. That’s the main
-                                        thing people are controlled by! Thoughts- their perception
-                                        of themselves! Theyre slowed down by their perception of
-                                        themselves. If youre taught you can’t do anything, you
-                                        won’t do anything. I was taught I could do everything.
-                                    </p>
+                                    {props.children}
                                 </div>
                                 {/*footer*/}
                                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">

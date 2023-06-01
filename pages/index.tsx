@@ -2,25 +2,57 @@ import Image from "next/image"
 import UserLayout from "@/layout/UserLayout"
 import HomeHeader from "@/components/HomePage/HomeHeader"
 import { Raleway } from "next/font/google";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-
-const raleway = Raleway({
-  weight: "400",
-  subsets: ["cyrillic"],
-  display: "swap"
-})
+import { useSession, signIn, signOut } from 'next-auth/react';
+import { useAppDispatch } from "@/js/redux/hook";
+import { usersSlice } from "@/js/redux/reducer/userSlices";
+// const raleway = Raleway({
+//   weight: "400",
+//   subsets: ["cyrillic"],
+//   display: "swap"
+// })
 
 export default function Home() {
+
   const [authMode, setAuthMode] = useState("Student");
   const [showModal, setShowModal] = useState(false);
-  const url = process.env.NEXT_PUBLIC_DEV_URL
-        console.log("datalog dari index " + url);
+
+  const { data, status } = useSession();
+
+  const isLoggedin = status;
+  const email = data?.user?.email;
+
+  const dispatch = useAppDispatch();
+
+  function registerUser() {
+    signIn('google');
+  }
+
+  function signOutUser() {
+    signOut();
+    setAuthMode("Student");
+  }
+  useEffect(() => {
+    function doregister() {
+      if (authMode != 'signin' && isLoggedin === "authenticated" && email)
+      dispatch(usersSlice.actions.register());
+    }
+    
+    doregister();
+
+  })
+
   return (
     <UserLayout title={"Home Page"}>
       <HomeHeader />
+      {isLoggedin === "authenticated" ?
+        (<><h1> hi {email}</h1>
+          <button onClick={() => signOutUser()}>sign out</button></>)
+        : (<p>signed out {email}</p>)
+      }
 
-      <div className="w-full p-20 flex justify-between mx-auto bg-contain" style={{backgroundColor:"#f7f7f7",}}>
+      <div className="w-full p-20 flex justify-between mx-auto bg-contain" style={{ backgroundColor: "#f7f7f7", }}>
 
         <div className="p-10 w-3/5 flex flex-col justify-center items-left">
           <h1 className="font-raleway text-5xl text-bg-dark font-bold tracking-wider" >LETS JOIN US!</h1>
@@ -57,7 +89,7 @@ export default function Home() {
             :
             <h2 className="text-2xl text-center font-raleway uppercase my-5">Please sign in </h2>}
           <div className="w-full justify-center grid grid-rows-2 grid-flow-col gap-2">
-            <button className="rounded-lg bg-bg-dark py-2 px-10 flex items-center hover:text-white text-light-gray ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-btn-hover duration-300">
+            <button onClick={() => registerUser()} className="rounded-lg bg-bg-dark py-2 px-10 flex items-center hover:text-white text-light-gray ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-danger duration-300">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-7 w-7 border rounded-full p-1 mr-2"

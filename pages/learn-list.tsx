@@ -2,18 +2,18 @@ import UserLayout from '@/layout/UserLayout';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import LearnListsModals from '@/components/modals/learnListsModals';
-import { useDispatch } from 'react-redux';
-import { useAppDispatch, useAppSelector } from '@/js/redux/hook';
+import { useAppDispatch, } from '@/js/redux/hook';
 import { usersSlice } from '@/js/redux/reducer/userSlices';
 
 export default function Products() {
-    const [authMode, setAuthMode] = useState("Student");
-    const [showModal, setShowModal] = useState(false);
+
+
     const dispatch = useAppDispatch();
-    const showModalLearnList = useAppSelector(state => state.usersData)
-    function openModalLearnist(){
+
+    function openModalLearnist() {
         dispatch(usersSlice.actions.openModalLearnList());
     }
+
     return (
         <UserLayout title='Learning lists'>
             <div className="w-full p-14 flex justify-between mx-auto bg-cover"
@@ -167,7 +167,7 @@ export default function Products() {
                                     Join Now
                                 </button>
 
-                                <button onClick={() => setShowModal(true)} className="flex group-hover:bg-white group-hover:text-bg-dark transition font-raleway ease-in-out delay-150  hover:-translate-y-1 hover:scale-110  duration-300 bg-bg-dark hover:bg-btn-hover  text-white rounded-lg hover:shadow-lg py-1 px-2 text-sm">
+                                <button onClick={() => openModalLearnist()} className="flex group-hover:bg-white group-hover:text-bg-dark transition font-raleway ease-in-out delay-150  hover:-translate-y-1 hover:scale-110  duration-300 bg-bg-dark hover:bg-btn-hover  text-white rounded-lg hover:shadow-lg py-1 px-2 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-1">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                                     </svg>
@@ -222,7 +222,7 @@ export default function Products() {
                                     Join Now
                                 </button>
 
-                                <button onClick={() => setShowModal(true)} className="flex group-hover:bg-white group-hover:text-bg-dark transition font-raleway ease-in-out delay-150  hover:-translate-y-1 hover:scale-110  duration-300 bg-bg-dark hover:bg-btn-hover  text-white rounded-lg hover:shadow-lg py-1 px-2 text-sm">
+                                <button onClick={() => openModalLearnist()} className="flex group-hover:bg-white group-hover:text-bg-dark transition font-raleway ease-in-out delay-150  hover:-translate-y-1 hover:scale-110  duration-300 bg-bg-dark hover:bg-btn-hover  text-white rounded-lg hover:shadow-lg py-1 px-2 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-1">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                                     </svg>
@@ -277,7 +277,7 @@ export default function Products() {
                                     Join Now
                                 </button>
 
-                                <button onClick={() => setShowModal(true)} className="flex group-hover:bg-white group-hover:text-bg-dark transition font-raleway ease-in-out delay-150  hover:-translate-y-1 hover:scale-110  duration-300 bg-bg-dark hover:bg-btn-hover  text-white rounded-lg hover:shadow-lg py-1 px-2 text-sm">
+                                <button onClick={() => openModalLearnist()} className="flex group-hover:bg-white group-hover:text-bg-dark transition font-raleway ease-in-out delay-150  hover:-translate-y-1 hover:scale-110  duration-300 bg-bg-dark hover:bg-btn-hover  text-white rounded-lg hover:shadow-lg py-1 px-2 text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-1">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                                     </svg>
@@ -291,7 +291,10 @@ export default function Products() {
                 </div>
             </div>
 
-            <LearnListsModals />
+            <LearnListsModals>
+                <p>contoh isi modal</p>
+            </LearnListsModals>
+
         </UserLayout>
 
     )
