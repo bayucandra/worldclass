@@ -1,57 +1,63 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Image from "next/image"
 import UserLayout from "@/layout/UserLayout"
 import HomeHeader from "@/components/HomePage/HomeHeader"
-import { Raleway } from "next/font/google";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { useAppDispatch } from "@/js/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/js/redux/hook";
 import { usersSlice } from "@/js/redux/reducer/userSlices";
-// const raleway = Raleway({
-//   weight: "400",
-//   subsets: ["cyrillic"],
-//   display: "swap"
-// })
+
 
 export default function Home() {
 
-  const [authMode, setAuthMode] = useState("Student");
+  const [authMode, setAuthMode] = useState('Student');
+  const [isregister, setIsRegister] = useState('register');
   const [showModal, setShowModal] = useState(false);
 
-  const { data, status } = useSession();
 
-  const isLoggedin = status;
+  const { data, status } = useSession();
   const email = data?.user?.email;
+  const name = data?.user?.name;
 
   const dispatch = useAppDispatch();
 
+
   function registerUser() {
     signIn('google');
+    localStorage.setItem('doreg', 'reqnewreg');
+    localStorage.setItem('regLevel', authMode);
   }
 
-  function signOutUser() {
-    signOut();
-    setAuthMode("Student");
-  }
-  useEffect(() => {
-    function doregister() {
-      if (authMode != 'signin' && isLoggedin === "authenticated" && email)
-      dispatch(usersSlice.actions.register());
+
+  function doRegisters() {
+    const getisregs = localStorage.getItem('doreg');
+
+    if (getisregs === 'reqnewreg' && email !== undefined) {
+      dispatch(usersSlice.actions.register({
+        email: email,
+        name: name,
+        level: localStorage.getItem('regLevel')
+      }));
+      localStorage.setItem('doreg', 'registered');
     }
-    
-    doregister();
+  }
 
-  })
+  useEffect(() => {
+
+    doRegisters();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email])
+
+  useEffect(() => {
+    dispatch(usersSlice.actions.fetching());
+  }, []);
+
+
 
   return (
     <UserLayout title={"Home Page"}>
       <HomeHeader />
-      {isLoggedin === "authenticated" ?
-        (<><h1> hi {email}</h1>
-          <button onClick={() => signOutUser()}>sign out</button></>)
-        : (<p>signed out {email}</p>)
-      }
-
       <div className="w-full p-20 flex justify-between mx-auto bg-contain" style={{ backgroundColor: "#f7f7f7", }}>
 
         <div className="p-10 w-3/5 flex flex-col justify-center items-left">
@@ -60,7 +66,7 @@ export default function Home() {
         </div>
 
         <div className="border w-2/5 border-bg-light hover:shadow-md rounded-md p-7 bg-white">
-          {authMode != "signin" ?
+          {isregister === "register" ?
             <>
               <div className="flex justify-between" >
                 <div onClick={() => setAuthMode("Student")} className={"group w-1/2 hover:shadow-lg flex items-center cursor-pointer p-2 mr-1 border border-light-gray rounded-md " + (authMode === "Student" ? "bg-btn-hover text-white shadow-md" : "hover:bg-btn-hover")}>
@@ -100,7 +106,7 @@ export default function Home() {
                   fillRule="evenodd"
                   clipRule="evenodd" />
               </svg>
-              {authMode != "signin" ? "Register" : "Sign in"} with Google
+              {isregister != "login" ? "Register" : "Sign in"} with Google
             </button>
 
             <button className="rounded-lg bg-white border-bg-dark border hover:border-white py-2 px-10 flex items-center hover:text-white text-btn-hover ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-btn-hover duration-300">
@@ -112,22 +118,22 @@ export default function Home() {
                 <path
                   d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
               </svg>
-              {authMode != "signin" ? "Register" : "Sign in"} with Facebook
+              {isregister != "login" ? "Register" : "Sign in"} with Facebook
             </button>
 
 
           </div>
 
-          {authMode != "signin" ?
+          {isregister === "register" ?
             <>
               <h3 className="text-lg text-center my-5">Have An account?</h3><div className="flex justify-center">
-                <button onClick={() => setAuthMode("signin")} className="text-center border border-btn-hover py-1 px-3 rounded-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-btn-hover hover:text-white duration-300">Sign in</button>
+                <button onClick={() => setIsRegister("login")} className="text-center border border-btn-hover py-1 px-3 rounded-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-btn-hover hover:text-white duration-300">Sign in</button>
               </div>
             </>
             :
             <>
               <h3 className="text-lg text-center my-5">Don&apos;t Have An account?</h3><div className="flex justify-center">
-                <button onClick={() => setAuthMode("Student")} className="text-center border border-btn-hover py-1 px-3 rounded-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-btn-hover hover:text-white duration-300">Register</button>
+                <button onClick={() => setIsRegister("register")} className="text-center border border-btn-hover py-1 px-3 rounded-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-btn-hover hover:text-white duration-300">Register</button>
               </div>
             </>
           }

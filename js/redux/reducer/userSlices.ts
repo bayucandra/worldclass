@@ -13,10 +13,22 @@ export interface IUserDataRecord {
 }
 export interface IUserDataPayload {
   res: any;
+  err: any;
   data: IUserDataRecord | null;
-  err: string | undefined;
 }
 
+export interface IUserRegisterPayload {
+  email: any;
+  name: any;
+  level: any;
+}
+export interface IUserRegisteredPayload {
+  email: any;
+  name: any;
+  level: any;
+  res: any;
+  err: any;
+}
 export interface UserState {
   register: {
     registering: boolean;
@@ -62,13 +74,12 @@ export const usersSlice = createSlice({
       state.data = action.payload.data;
       state.err = action.payload.err;
     },
-    register: (state) => {
+    // do the register process
+    register: (state, action: PayloadAction<IUserRegisterPayload>) => {
       state.register.registering = true;
       state.register.registered = false;
-      state.register.res = null;
-      state.register.err = undefined;
     },
-    registered: (state, action: PayloadAction<IUserDataPayload>) => {
+    registered: (state, action: PayloadAction<IUserRegisteredPayload>) => {
       state.register.registering = false;
       state.register.registered = true;
       state.register.res = action.payload.res;
@@ -79,7 +90,8 @@ export const usersSlice = createSlice({
     },
     closeModalLearnList: (state) => {
       state.isOpen = false;
-    }
+    },
+
   },
 })
 

@@ -47,15 +47,26 @@ async function getUsers(req, res) {
 
 // Adding a new user
 async function addUser(req, res) {
-    
+
+
 
     try {
         let { db } = await connectToDatabase();
-        await db.collection('data_users').insertOne(req.body);
+        const emailSubmit = req.body.email;
+        const existingData = await db.collection('data_users').findOne({email:emailSubmit});
+
+        if (existingData) {
+          res.json({ message: 'Email already exists in the database ' + emailSubmit });
+          return;
+        }
+        else {
+            await db.collection('data_users').insertOne(req.body);
         return res.json({
-            message: 'User added successfully',
+            message: `User added successfully  ${emailSubmit}`,
             success: true,
         });
+        }
+        
     } catch (error) {
         return res.json({
             message: new Error(error).message,

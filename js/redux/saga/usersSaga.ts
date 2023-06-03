@@ -1,4 +1,4 @@
-import { IUserDataPayload, usersSlice } from "@/js/redux/reducer/userSlices";
+import { IUserDataPayload, IUserRegisterPayload, IUserRegisteredPayload, usersSlice } from "@/js/redux/reducer/userSlices";
 import axios from "axios";
 import { put, takeLatest } from "redux-saga/effects";
 import _ from "lodash";
@@ -24,6 +24,7 @@ function* usersState() {
 
     const fetchRes: IUserDataPayload = yield async function () {
         const ret: IUserDataPayload = {
+            
             res: null,
             data: null,
             err: "",
@@ -38,7 +39,7 @@ function* usersState() {
 
 
         } catch (e) {
-            // ret.err = e?.message ?? e ?? errorMessages.fetchException;
+             ret.err = e;
         }
 
         return ret;
@@ -49,44 +50,50 @@ function* usersState() {
 
 };
 
-function* registerUser() {
+function* registerUser(action: PayloadAction<IUserRegisterPayload>) {
 
-    const registering: IUserDataPayload = yield async function () {
-        const ret: IUserDataPayload = {
+    const registering: IUserRegisteredPayload = yield async function () {
+        const ret: IUserRegisteredPayload = {
+            email: action.payload.email,
+            name: action.payload.name,
+            level: action.payload.level,
             res: null,
-            data: null,
-            err: "",
+            err: undefined,
         };
        
         try {
             const url = process.env.NEXT_PUBLIC_DEV_URL
             const formData = new FormData();
 
-            formData.append("email", "email@gmail.com");
-            formData.append("fname", "");
-            formData.append("lname", "");
-            formData.append("created_at", new Date().toISOString());
+            // formData.append("email", "email@gmail.com");
+            // formData.append("fname", "");
+            // formData.append("lname", "");
+            // formData.append("created_at", new Date().toISOString());
 
             const contents = {
-                email: "email@gmail.com1", 
-                fname: "jannah1",
-                lname: "saja1",
+                email: action.payload.email, 
+                googleName: action.payload.name,
+                level: action.payload.level,
+                fname: "testname",
+                lname: "test last",
                 created_at: new Date().toISOString(),
             }
             const res: any = await axios.post(
                 `${url}/api/usersActions`,
                 contents,
             );
-            console.log(`data di eksekusi ${contents.email}`);
+            // console.log(`data di eksekusi ${contents.email}`);
 
-            if (_.get(res, 'meta.status') !== 'success')
-                throw (_.get(res, 'meta.message') || errorMessages.invalidResponseBody);
+            // if (_.get(res, 'meta.status') !== 'success')
+            //     throw (_.get(res, 'meta.message') || errorMessages.invalidResponseBody);
+            
 
             ret.res = res;
 
 
         } catch (e) {
-            // ret.err = _.get(e, 'errors.path[0]') ?? e?.message ?? e ?? errorMessages.postException;
+        
+            ret.err = e;
         }
 
         return ret;

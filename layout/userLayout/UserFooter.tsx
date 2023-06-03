@@ -7,10 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function UserFooter() {
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-      dispatch(usersSlice.actions.fetching());
-    },[dispatch]);
+  
+  
 
   return (
     <>
