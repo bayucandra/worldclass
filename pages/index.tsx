@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Image from "next/image"
 import UserLayout from "@/layout/UserLayout"
 import HomeHeader from "@/components/HomePage/HomeHeader"
@@ -26,6 +25,10 @@ export default function Home() {
     signIn('google');
     localStorage.setItem('doreg', 'reqnewreg');
     localStorage.setItem('regLevel', authMode);
+
+  }
+  if (email) {
+    localStorage.setItem('userMail', `${email}`);
   }
 
 
@@ -50,8 +53,10 @@ export default function Home() {
   }, [email])
 
   useEffect(() => {
-    dispatch(usersSlice.actions.fetching());
-  }, []);
+    if (email)
+      dispatch(usersSlice.actions.fetching());
+    return;
+  }, [email]);
 
 
 

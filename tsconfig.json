@@ -18,6 +18,6 @@
       "@/*": ["./*","./js/redux/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "lib/mongodb.js","lib/errorMessage.ts", "pages/api/usersActions.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "lib/mongodb.js","lib/errorMessage.ts", "pages/api/usersActions.ts"],
   "exclude": ["node_modules"]
 }

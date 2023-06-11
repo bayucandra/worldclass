@@ -1,7 +1,7 @@
 const { connectToDatabase } = require('../../lib/mongodb');
 const ObjectId = require('mongodb').ObjectId;
 
-export default async function handler(req, res) {
+export default async function handler(req:any, res: any) {
     // switch the methods
     switch (req.method) {
         case 'GET': {
@@ -23,9 +23,10 @@ export default async function handler(req, res) {
 }
 
 // Getting all users.
-async function getUsers(req, res) {
-
+async function getUsers(req: any, res: { json: (arg0: { message: any; success: boolean; }) => any; }) {
+    
     try {
+        //const { userMail } = req.query;
         let { db } = await connectToDatabase();
         let users = await db
             .collection('data_users')
@@ -38,15 +39,16 @@ async function getUsers(req, res) {
         });
     } catch (error) {
         return res.json({
-            message: new Error(error).message,
+            message: error,
             success: false,
+            
         });
     }
 
 }
 
 // Adding a new user
-async function addUser(req, res) {
+async function addUser(req: { body: { email: any; }; }, res: { json: (arg0: { message: string; success?: boolean; }) => void; }) {
 
 
 
@@ -69,15 +71,16 @@ async function addUser(req, res) {
         
     } catch (error) {
         return res.json({
-            message: new Error(error).message,
+            // message: new Error(error).message,
             success: false,
+            message: ""
         });
     }
 
 }
 
 // Updating a user
-async function updateUser(req, res) {
+async function updateUser(req: { body: any; }, res: { json: (arg0: { message: unknown; success: boolean; }) => any; }) {
     try {
         let { db } = await connectToDatabase();
 
@@ -94,14 +97,14 @@ async function updateUser(req, res) {
         });
     } catch (error) {
         return res.json({
-            message: new Error(error).message,
+            message: error,
             success: false,
         });
     }
 }
 
 // deleting a user
-async function deleteUser(req, res) {
+async function deleteUser(req: { body: any; }, res: { json: (arg0: { message?: string; success: boolean; }) => any; }) {
     try {
         let { db } = await connectToDatabase();
 
@@ -115,7 +118,7 @@ async function deleteUser(req, res) {
         });
     } catch (error) {
         return res.json({
-            message: new Error(error).message,
+            // message: new Error(error).message,
             success: false,
         });
     }

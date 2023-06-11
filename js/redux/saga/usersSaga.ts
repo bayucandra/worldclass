@@ -32,8 +32,18 @@ function* usersState() {
         const url = process.env.NEXT_PUBLIC_DEV_URL
 
         try {
-
-            const res: any = await axios.get(`${url}/api/usersActions`);
+            const userMail = localStorage.getItem('userMail');
+            const res: any = await axios.post(`${url}/api/fetchuser?userMail=${userMail}`,);
+            
+            // fetch('/api/fetchuser', {
+            //     method: 'POST',
+            //     headers: {
+            //       'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({ userMail }),
+            //   })
+            
+            // fetch(`${url}/api/usersActions?userMail=${userMail}`);
             ret.res = res;
             ret.data = _.get(res, 'data.message')
 
