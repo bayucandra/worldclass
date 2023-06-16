@@ -1,6 +1,8 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react';
+import { useAppDispatch } from '@/js/redux/hook';
+import { usersSlice } from "@/js/redux/reducer/userSlices";
 
 export default function UserNavbar() {
   const [navbar, setNavbar] = useState(false);
@@ -10,10 +12,19 @@ export default function UserNavbar() {
 
   const isLoggedin = status;
   const name = data?.user?.name;
+  const email = data?.user?.email;
+
+  const dispatch = useAppDispatch();
 
   function signOutUser() {
     signOut();
   }
+  
+  useEffect(() => {
+    if (email)
+      dispatch(usersSlice.actions.fetchUserData());
+    return;
+  }, [email]);
 
   return (
     <nav className="w-full bg-bg-light shadow">

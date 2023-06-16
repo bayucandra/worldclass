@@ -40,7 +40,7 @@ export interface UserState {
   fetched: boolean;
   res: any;
   err: string | undefined;
-  data: IUserDataRecord | null;
+  userData: IUserDataRecord | null;
   isOpen: boolean;
 }
 
@@ -55,7 +55,7 @@ const initialState: UserState = {
   fetched: false,
   res: null,
   err: undefined,
-  data: null,
+  userData: null,
   isOpen: false,
 }
 
@@ -63,15 +63,15 @@ export const usersSlice = createSlice({
   name: 'usersData',
   initialState,
   reducers: {
-    fetching: (state) => {
+    fetchUserData: (state) => {
       state.fetching = true;
       state.fetched = false;
     },
-    fetched: (state, action: PayloadAction<IUserDataPayload>) => {
+    fetchedUserData: (state, action: PayloadAction<IUserDataPayload>) => {
       state.fetching = false;
       state.fetched = true;
       state.res = action.payload.res;
-      state.data = action.payload.data;
+      state.userData = action.payload.data;
       state.err = action.payload.err;
     },
     // do the register process

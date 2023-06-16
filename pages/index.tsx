@@ -2,8 +2,8 @@ import Image from "next/image"
 import UserLayout from "@/layout/UserLayout"
 import HomeHeader from "@/components/HomePage/HomeHeader"
 import { useEffect, useState } from "react";
-import { useSession, signIn, signOut } from 'next-auth/react';
-import { useAppDispatch, useAppSelector } from "@/js/redux/hook";
+import { useSession, signIn } from 'next-auth/react';
+import { useAppDispatch} from "@/js/redux/hook";
 import { usersSlice } from "@/js/redux/reducer/userSlices";
 
 
@@ -52,11 +52,7 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email])
 
-  useEffect(() => {
-    if (email)
-      dispatch(usersSlice.actions.fetching());
-    return;
-  }, [email]);
+
 
 
 

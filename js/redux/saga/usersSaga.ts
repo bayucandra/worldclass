@@ -8,7 +8,7 @@ import { errorMessages } from "@/lib/errorMessage";
 
 export function* usersSaga() {
     yield takeLatest(
-        usersSlice.actions.fetching.toString(),
+        usersSlice.actions.fetchUserData.toString(),
         usersState,
 
     );
@@ -34,16 +34,6 @@ function* usersState() {
         try {
             const userMail = localStorage.getItem('userMail');
             const res: any = await axios.post(`${url}/api/fetchuser?userMail=${userMail}`,);
-            
-            // fetch('/api/fetchuser', {
-            //     method: 'POST',
-            //     headers: {
-            //       'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify({ userMail }),
-            //   })
-            
-            // fetch(`${url}/api/usersActions?userMail=${userMail}`);
             ret.res = res;
             ret.data = _.get(res, 'data.message')
 
@@ -56,7 +46,7 @@ function* usersState() {
 
     }();
 
-    yield put(usersSlice.actions.fetched(fetchRes));
+    yield put(usersSlice.actions.fetchedUserData(fetchRes));
 
 };
 
@@ -75,28 +65,18 @@ function* registerUser(action: PayloadAction<IUserRegisterPayload>) {
             const url = process.env.NEXT_PUBLIC_DEV_URL
             const formData = new FormData();
 
-            // formData.append("email", "email@gmail.com");
-            // formData.append("fname", "");
-            // formData.append("lname", "");
-            // formData.append("created_at", new Date().toISOString());
-
             const contents = {
                 email: action.payload.email, 
                 googleName: action.payload.name,
                 level: action.payload.level,
-                fname: "testname",
-                lname: "test last",
+                fname: "",
+                lname: "",
                 created_at: new Date().toISOString(),
             }
             const res: any = await axios.post(
                 `${url}/api/usersActions`,
                 contents,
             );
-            // console.log(`data di eksekusi ${contents.email}`);
-
-            // if (_.get(res, 'meta.status') !== 'success')
-            //     throw (_.get(res, 'meta.message') || errorMessages.invalidResponseBody);
-            
 
             ret.res = res;
 
